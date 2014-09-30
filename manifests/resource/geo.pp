@@ -73,7 +73,8 @@ define nginx::resource::geo (
   if ($proxies != undef) { validate_array($proxies) }
   if ($proxy_recursive != undef) { validate_bool($proxy_recursive) }
 
-  $root_group = $nginx::config::root_group
+  include nginx::params
+  $root_group = $nginx::params::root_group
 
   $ensure_real = $ensure ? {
     'absent' => 'absent',

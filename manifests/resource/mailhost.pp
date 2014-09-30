@@ -61,7 +61,8 @@ define nginx::resource::mailhost (
   $server_name         = [$name]
 ) {
 
-  $root_group = $nginx::config::root_group
+  include nginx::params
+  $root_group = $nginx::params::root_group
 
   File {
     owner => 'root',

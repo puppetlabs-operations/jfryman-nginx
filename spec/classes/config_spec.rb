@@ -3,18 +3,18 @@ describe 'nginx::config' do
 
   describe 'with defaults' do
     [
-      { :osfamily => 'Debian', :operatingsystem => 'Debian', },
-      { :osfamily => 'Debian', :operatingsystem => 'Ubuntu', },
-      { :osfamily => 'Redhat', :operatingsystem => 'Fedora', },
-      { :osfamily => 'Redhat', :operatingsystem => 'RedHat', },
-      { :osfamily => 'Redhat', :operatingsystem => 'OracleLinux', },
-      { :osfamily => 'Redhat', :operatingsystem => 'CentOS', },
-      { :osfamily => 'Redhat', :operatingsystem => 'Scientific', },
-      { :osfamily => 'Redhat', :operatingsystem => 'Amazon', },
-      { :osfamily => 'SuSE',   :operatingsystem => 'SuSE', },
-      { :osfamily => 'SuSE',   :operatingsystem => 'OpenSuSE', },
-      { :osfamily => 'Gentoo', :operatingsystem => 'Gentoo', },
-      { :osfamily => 'Linux',  :operatingsystem => 'Gentoo', },
+      { :osfamily => 'debian', :operatingsystem => 'debian', },
+      { :osfamily => 'debian', :operatingsystem => 'ubuntu', },
+      { :osfamily => 'redhat', :operatingsystem => 'fedora', },
+      { :osfamily => 'redhat', :operatingsystem => 'rhel', },
+      { :osfamily => 'redhat', :operatingsystem => 'redhat', },
+      { :osfamily => 'redhat', :operatingsystem => 'centos', },
+      { :osfamily => 'redhat', :operatingsystem => 'scientific', },
+      { :osfamily => 'redhat', :operatingsystem => 'amazon', },
+      { :osfamily => 'suse',   :operatingsystem => 'suse', },
+      { :osfamily => 'suse',   :operatingsystem => 'opensuse', },
+      { :osfamily => 'gentoo', :operatingsystem => 'gentoo', },
+      { :osfamily => 'linux',  :operatingsystem => 'gentoo', },
     ].each do |facts|
 
       context "when osfamily/operatingsystem is #{facts[:osfamily]}/#{facts[:operatingsystem]}" do
@@ -25,6 +25,8 @@ describe 'nginx::config' do
             :operatingsystem => facts[:operatingsystem],
           }
         end
+
+        it { is_expected.to contain_class("nginx::params") }
 
         it { is_expected.to contain_file("/etc/nginx").only_with(
           :path   => "/etc/nginx",
@@ -94,8 +96,8 @@ describe 'nginx::config' do
 
   describe 'with defaults' do
     [
-      { :osfamily => 'Debian', :operatingsystem => 'Debian', },
-      { :osfamily => 'Debian', :operatingsystem => 'Ubuntu', },
+      { :osfamily => 'debian', :operatingsystem => 'debian', },
+      { :osfamily => 'debian', :operatingsystem => 'ubuntu', },
     ].each do |facts|
 
       context "when osfamily/operatingsystem is #{facts[:osfamily]}/#{facts[:operatingsystem]}" do
@@ -115,16 +117,16 @@ describe 'nginx::config' do
 
   describe 'with defaults' do
     [
-      { :osfamily => 'RedHat', :operatingsystem => 'Fedora', },
-      { :osfamily => 'RedHat', :operatingsystem => 'RedHat', },
-      { :osfamily => 'RedHat', :operatingsystem => 'OracleLinux', },
-      { :osfamily => 'RedHat', :operatingsystem => 'CentOS', },
-      { :osfamily => 'RedHat', :operatingsystem => 'Scientific', },
-      { :osfamily => 'RedHat', :operatingsystem => 'Amazon', },
-      { :osfamily => 'SuSE',   :operatingsystem => 'SuSE', },
-      { :osfamily => 'SuSE',   :operatingsystem => 'openSuSE', },
-      { :osfamily => 'Gentoo', :operatingsystem => 'Gentoo', },
-      { :osfamily => 'Linux',  :operatingsystem => 'Gentoo', },
+      { :osfamily => 'redhat', :operatingsystem => 'fedora', },
+      { :osfamily => 'redhat', :operatingsystem => 'rhel', },
+      { :osfamily => 'redhat', :operatingsystem => 'redhat', },
+      { :osfamily => 'redhat', :operatingsystem => 'centos', },
+      { :osfamily => 'redhat', :operatingsystem => 'scientific', },
+      { :osfamily => 'redhat', :operatingsystem => 'amazon', },
+      { :osfamily => 'suse',   :operatingsystem => 'suse', },
+      { :osfamily => 'suse',   :operatingsystem => 'opensuse', },
+      { :osfamily => 'gentoo', :operatingsystem => 'gentoo', },
+      { :osfamily => 'linux',  :operatingsystem => 'gentoo', },
     ].each do |facts|
 
       context "when osfamily/operatingsystem is #{facts[:osfamily]}/#{facts[:operatingsystem]}" do
@@ -146,8 +148,8 @@ describe 'nginx::config' do
 
     let :facts do
       {
-        :osfamily        => 'Debian',
-        :operatingsystem => 'Debian',
+        :osfamily        => 'debian',
+        :operatingsystem => 'debian',
       }
     end
 

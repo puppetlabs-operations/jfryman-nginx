@@ -6,8 +6,8 @@ describe 'nginx::resource::mailhost' do
   end
   let :facts do
     {
-      :osfamily        => 'Debian',
-      :operatingsystem => 'Debian',
+      :osfamily        => 'debian',
+      :operatingsystem => 'debian',
       :ipaddress6      => '::',
     }
   end

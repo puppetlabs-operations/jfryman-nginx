@@ -19,13 +19,6 @@ class nginx::package::redhat (
   $package_name   = 'nginx',
 ) {
 
-  if $::lsbmajdistrelease {
-    $major_dist_release = $::lsbmajdistrelease
-  }
-  else {
-    $major_dist_release = $::operatingsystemmajrelease
-  }
-
   case $::operatingsystem {
     'fedora': {
       # nginx.org does not supply RPMs for fedora
@@ -38,9 +31,9 @@ class nginx::package::redhat (
       }
     }
     default: {
-      case $major_dist_release {
+      case $::lsbmajdistrelease {
         5, 6, 7: {
-          $os_rel = $major_dist_release
+          $os_rel = $::lsbmajdistrelease
         }
         default: {
           # Amazon uses the year as the $::lsbmajdistrelease

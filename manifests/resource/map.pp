@@ -57,7 +57,8 @@ define nginx::resource::map (
     "Invalid ensure value '${ensure}'. Expected 'present' or 'absent'")
   if ($default != undef) { validate_string($default) }
 
-  $root_group = $nginx::config::root_group
+  include nginx::params
+  $root_group = $nginx::params::root_group
 
   $ensure_real = $ensure ? {
     'absent' => absent,

@@ -19,6 +19,7 @@ describe 'nginx::resource::vhost' do
   end
   let :pre_condition do
     [
+      'include ::nginx::params',
       'include ::nginx::config',
     ]
   end
@@ -27,6 +28,7 @@ describe 'nginx::resource::vhost' do
 
     describe 'basic assumptions' do
       let :params do default_params end
+      it { is_expected.to contain_class("nginx::params") }
       it { is_expected.to contain_class("nginx::config") }
       it { is_expected.to contain_concat("/etc/nginx/sites-available/#{title}.conf").with({
         'owner' => 'root',

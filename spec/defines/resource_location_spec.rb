@@ -8,11 +8,12 @@ describe 'nginx::resource::location' do
   let :facts do
     {
       :osfamily        => 'Debian',
-      :operatingsystem => 'Debian',
+      :operatingsystem => 'debian',
     }
   end
   let :pre_condition do
     [
+      'include ::nginx::params',
       'include ::nginx::config',
     ]
   end
@@ -25,6 +26,7 @@ describe 'nginx::resource::location' do
         :vhost    => 'vhost1',
       } end
 
+      it { is_expected.to contain_class("nginx::params") }
       it { is_expected.to contain_class("nginx::config") }
       it { is_expected.to contain_concat__fragment("f25e14942fb58942ee13b1465a4e1719").with_content(/location rspec-test/) }
       it { is_expected.not_to contain_file('/etc/nginx/fastcgi_params') }
@@ -175,15 +177,6 @@ describe 'nginx::resource::location' do
             '    test3 subtest1 "sub test value1a";',
             '    test3 subtest1 "sub test value1b";',
             '    test3 subtest2 "sub test value2";',
-          ],
-        },
-        {
-          :title => 'should contain include directives',
-          :attr  => 'include',
-          :value => [ '/file1', '/file2' ],
-          :match => [
-            %r'^\s+include\s+/file1;',
-            %r'^\s+include\s+/file2;',
           ],
         },
         {
@@ -722,7 +715,7 @@ describe 'nginx::resource::location' do
           :vhost => 'vhost1',
         } end
 
-        it { expect { is_expected.to contain_class('nginx::resource::location') }.to raise_error(Puppet::Error, /Cannot create a location reference without a www_root, proxy, location_alias, fastcgi, stub_status, internal, or location_custom_cfg defined/) }
+        it { expect { is_expected.to contain_class('nginx::resource::location') }.to raise_error(Puppet::Error, /Cannot create a location reference without a www_root, proxy, location_alias, fastcgi, stub_status, or location_custom_cfg defined/) }
       end
 
       context "www_root and proxy are set" do

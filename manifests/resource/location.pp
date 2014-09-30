@@ -159,7 +159,6 @@ define nginx::resource::location (
   $location_cfg_append  = undef,
   $location_custom_cfg_prepend  = undef,
   $location_custom_cfg_append   = undef,
-  $include              = undef,
   $try_files            = undef,
   $proxy_cache          = false,
   $proxy_cache_valid    = false,
@@ -173,7 +172,8 @@ define nginx::resource::location (
   $flv             = false,
 ) {
 
-  $root_group = $nginx::config::root_group
+  include nginx::params
+  $root_group = $nginx::params::root_group
 
   File {
     owner  => 'root',
@@ -198,9 +198,7 @@ define nginx::resource::location (
   if ($proxy != undef) {
     validate_string($proxy)
   }
-  if ($proxy_redirect != undef) {
-    validate_string($proxy_redirect)
-  }
+  validate_string($proxy_redirect)
   validate_string($proxy_read_timeout)
   validate_string($proxy_connect_timeout)
   validate_array($proxy_set_header)
@@ -260,9 +258,6 @@ define nginx::resource::location (
   if ($location_cfg_append != undef) {
     validate_hash($location_cfg_append)
   }
-  if ($include != undef) {
-    validate_array($include)
-  }
   if ($try_files != undef) {
     validate_array($try_files)
   }
@@ -308,8 +303,8 @@ define nginx::resource::location (
   if ($vhost == undef) {
     fail('Cannot create a location reference without attaching to a virtual host')
   }
-  if (($www_root == undef) and ($proxy == undef) and ($location_alias == undef) and ($stub_status == undef) and ($fastcgi == undef) and ($location_custom_cfg == undef) and ($internal == false)) {
-    fail('Cannot create a location reference without a www_root, proxy, location_alias, fastcgi, stub_status, internal, or location_custom_cfg defined')
+  if (($www_root == undef) and ($proxy == undef) and ($location_alias == undef) and ($stub_status == undef) and ($fastcgi == undef) and ($location_custom_cfg == undef)) {
+    fail('Cannot create a location reference without a www_root, proxy, location_alias, fastcgi, stub_status, or location_custom_cfg defined')
   }
   if (($www_root != undef) and ($proxy != undef)) {
     fail('Cannot define both directory and proxy in a virtual host')
