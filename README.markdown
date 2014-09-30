@@ -1,9 +1,11 @@
 # NGINX Module
 
-[![Build Status](https://travis-ci.org/jfryman/puppet-nginx.png)](https://travis-ci.org/jfryman/puppet-nginx)
+[![Build Status](https://travis-ci.org/danieldreier/puppet-nginx.png)](https://travis-ci.org/danieldreier/puppet-nginx)
 
 * James Fryman <james@frymanet.com>
 * Matthew Haughton <matt@3flex.com.au>
+
+This is a forked version of the jfryman/nginx module that removes the dependency on the module_data module.
 
 This module manages NGINX configuration.
 
