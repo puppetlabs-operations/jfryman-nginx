@@ -37,8 +37,10 @@ class nginx::package::debian(
         apt::source { 'nginx':
           location   => "http://nginx.org/packages/${distro}",
           repos      => 'nginx',
-          key        => '573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62',
-          key_source => 'http://nginx.org/keys/nginx_signing.key',
+          key        => {
+            'id'     => '573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62',
+            'source' => 'http://nginx.org/keys/nginx_signing.key',
+          },
           notify     => Exec['apt_get_update_for_nginx'],
         }
       }
